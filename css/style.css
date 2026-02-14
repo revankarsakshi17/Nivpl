@@ -469,18 +469,17 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
-  transition: all .45s cubic-bezier(.19,1,.22,1);
+  transition: all .45s cubic-bezier(.12,1,.12,1);
 }
 
 /* LOGO */
 .brand-card img {
-  max-width: 170px;
-  max-height: 90px;
+    width: 100%;
+  max-width: 200px;
+  height: auto;
   object-fit: contain;
-  filter: grayscale(100%) contrast(90%);
-  opacity: .8;
-
+  /* filter: grayscale(100%) contrast(90%); */
+  /* opacity: .; */
   transition: all .45s ease;
 }
 
