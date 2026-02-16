@@ -303,12 +303,6 @@ html, body {
     font-weight: bold;
 }
 
-.brands-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-
-}
 
 /* BRAND LINK */
 .brand-link {
@@ -469,7 +463,7 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all .45s cubic-bezier(.12,1,.12,1);
+  transition: all .45s cubic-bezier(.12,1,.12,1);  
 }
 
 /* LOGO */
@@ -505,7 +499,7 @@ html, body {
 }
 
 .brand-card:hover img {
-  filter: grayscale(0%);
+  /* filter: grayscale(0%); */
   opacity: 1;
   transform: scale(1.12);
 }
