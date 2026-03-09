@@ -184,15 +184,29 @@ html, body {
     margin-bottom: 18px;
 }
 
+.second{
+    grid-column: 1 / -1;   /* spans both columns */
+    margin-top: -70px;
+}
+
+.second p{
+    font-size: 22px;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 18px;
+}
+
 /* IMAGE */
 .brand-image {
     position: relative;
+    top: 20px; 
 }
 
 .brand-image img {
-    width: 100%;
+    width: 150%;
     height: auto;
     border-radius: 18px;
+    margin-top: 10px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.15);
 }
 
