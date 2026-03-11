@@ -114,26 +114,6 @@ html, body {
     font-weight: 600;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 24px;
-    }
-
-    .nav-right {
-        gap: 18px;
-    }
-
-    .nav-right a {
-        font-size: 16px;
-    }
-
-    .logo {
-        height: 48px;
-    }
-}
-
-
 
 /* BRAND ABOUT SECTION */
 .back-btn{
@@ -155,9 +135,9 @@ html, body {
 }
 
 .brand-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 40px;
+    max-width: 1300px;
+    margin-left: 100px;
+    padding: 0 100px;
 
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -221,6 +201,22 @@ html, body {
     border-radius: 18px;
     background: rgba(139, 94, 60, 0.08);
     z-index: -1;
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;   /* centers horizontally */
+    align-items: center;
+    gap: 20px;   
+    background-color: var(--soft-brush);     
+    padding:50px;
+}
+
+img{
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* RESPONSIVE */
