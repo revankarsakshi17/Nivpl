@@ -587,54 +587,109 @@ html, body {
 
 .section-title{
   color: var(--burgundy-deep);
-  font-size:50px;
+  font-size:55px;
   font-weight:700;
   margin-bottom:10px;
 }
 
 .section-subtitle{
-  font-size:22px;
+  font-size:25px;
   color: var(--grey-text);
   margin-bottom:60px;
   font-weight: 800;
 }
 
+
 /* GRID */
-.outlets-grid{
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:30px;
+.outlets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 25px;
 }
 
 /* CARD */
-.outlet-card{
-  background:#ffffff;
-  padding:35px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.05);
-  transition:all 0.3s ease;
+.outlet-card {
+  background: #e6e1dd;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.4s;
+  overflow: hidden;
 }
 
-.outlet-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.1);
+/* GRADIENT TOP LINE */
+.outlet-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #b30000, #ff6a00);
 }
 
-.outlet-card h3{
-  font-size:20px;
-  margin-bottom:15px;
-  font-weight:600;
+.outlet-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
-.outlet-card a{
-  text-decoration:none;
-  font-weight:500;
-  color:#c62828;
-  transition:0.3s;
+.icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #f3dede; /* light pink */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
 }
 
-.outlet-card a:hover{
-  letter-spacing:1px;
+.icon span {
+  font-size: 36px;
+  color: #b30000; /* burgundy */
+  transition: 0.5s;
+}
+
+/* HOVER EFFECT */
+.outlet-card:hover .icon {
+  background: #800020; /* burgundy */
+  transform: rotate(360deg);
+}
+
+.outlet-card:hover .icon span {
+  color: #fff;
+}
+
+/* TEXT */
+.outlet-card h3 {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.outlet-card p {
+  font-size: 17px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* LINK BUTTON */
+.outlet-card a {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 2px solid #800020;
+  border-radius: 25px;
+  color: #800020;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.outlet-card a:hover {
+  background: #800020;
+  color: white;
 }
 
 

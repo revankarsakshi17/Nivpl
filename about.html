@@ -8,7 +8,757 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
     <link rel="manifest" href="images/favicon/site.webmanifest">
     <meta name="theme-color" content="#000000">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        html {
+    scroll-behavior: smooth;
+}
+
+/* GLOBAL FIX */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+:root {
+  --black-main: #0E0E0E;
+  --black-soft: #181818;
+  --black-line: #2A2A2A;
+
+  --burgundy-deep: #45171B;
+  --soft-brush: #D8D1C2;
+
+  --red-main: #7A1414;
+  --red-dark: #5C0F0F;
+  --red-soft: #9B2C2C;
+  --red-light: #C65B5B;
+
+  --grey-bg: #F7F4F1;
+  --grey-section: #EFEAE5;
+  --grey-text: #444444;
+  --grey-muted: #6C6762;
+
+  --gold-main: #B08D57;
+  --gold-soft: #D6B980;
+  --gold-dark: #8C6A3F;
+
+  --white-warm: #F7F4F1;
+}
+
+
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 60px;
+    /* background: rgba(231, 226, 222, 0.96); */
+    backdrop-filter: blur(6px);
+
+    background: var(--black-soft);
+    color: var(--white-warm);
+
+    z-index: 1000;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+}
+
+/* LEFT SIDE */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo {
+    height: 54px;
+    width: auto;
+}
+
+/* RIGHT SIDE */
+.nav-right {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-right a {
+    position: relative;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    color:var(--white-warm);
+    padding: 6px 0;
+    transition: color 0.3s ease;
+}
+
+/* UNDERLINE ANIMATION */
+.nav-right a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    color: var(--soft-brush);
+    background: var(--soft-brush);
+    transition: width 0.3s ease;
+}
+
+.nav-right a:hover::after,
+.nav-right a.active::after {
+    width: 100%;
+}
+
+.nav-right a.active {
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 24px;
+    }
+
+    .nav-right {
+        gap: 18px;
+    }
+
+    .nav-right a {
+        font-size: 16px;
+    }
+
+    .logo {
+        height: 48px;
+    }
+}
+
+
+.about-hero {
+    width: 100%;
+    min-height: 62vh;
+    background: #1a1208;
+    display: flex;
+    align-items: flex-end;
+    padding: 120px 6rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Giant ghost watermark text */
+  .about-hero::before {
+    content: 'NIVPL';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(7rem, 22vw, 20rem);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201, 168, 76, 0.1);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+
+  /* Subtle radial glow */
+  .about-hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 60%, rgba(107, 26, 26, 0.3) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .about-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .about-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 1.5rem;
+
+    /* Fade-up animation */
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.1s forwards;
+  }
+
+  .about-hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: #c9a84c;
+    flex-shrink: 0;
+  }
+
+  .about-hero h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+
+    /* Fade-up animation */
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .about-hero h1 em {
+    font-style: italic;
+    color: #c9a84c;
+  }
+
+  .about-hero-sub {
+    margin-top: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    max-width: 420px;
+
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease 0.5s forwards;
+  }
+
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: 100px 2rem 4rem;
+      min-height: 55vh;
+    }
+  }
+
+
+
+    /* ── MAIN CONTENT ── */
+    main {
+      background: var(--cream);
+      position: relative;
+    }
+
+    /* ── INTRO SECTION ── */
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    .intro-text {
+      padding: 7rem 5rem 7rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      margin-bottom: 2rem;
+    }
+
+    .intro-text p {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .intro-text p:first-of-type {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--maroon);
+    }
+
+    .intro-visual {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    .intro-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+
+    .intro-visual:hover img {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+
+    .intro-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(107,26,26,0.35) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .est-badge {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      z-index: 2;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 1.2rem 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .est-badge .year { font-size: 2rem; font-weight: 700; display: block; line-height: 1; }
+    .est-badge .label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Outfit', sans-serif; font-weight: 500; }
+
+    /* ── PILLARS ── */
+    .pillars {
+      background: var(--dark);
+      padding: 6rem;
+    }
+
+    .pillars-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+
+    .pillars-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .pillars-header h2 span { color: var(--gold); font-style: italic; }
+
+    .pillars-header p {
+      max-width: 340px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .pillar {
+      background: var(--dark);
+      padding: 3rem 2.5rem;
+      position: relative;
+      transition: background 0.4s;
+    }
+
+    .pillar:hover { background: #221808; }
+
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: color 0.4s;
+    }
+
+    .pillar:hover .pillar-num { color: rgba(201,168,76,0.25); }
+
+    .pillar h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .pillar p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+    }
+
+    .pillar-line {
+      position: absolute;
+      bottom: 0; left: 2.5rem;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .pillar:hover .pillar-line { width: calc(100% - 5rem); }
+
+    /* ── VISION MISSION ── */
+    .vm-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .vm-block {
+      padding: 7rem 5rem;
+      position: relative;
+    }
+
+    .vm-block:first-child {
+      background: var(--maroon);
+      color: #fff;
+    }
+
+    .vm-block:last-child {
+      background: var(--cream);
+    }
+
+    .vm-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1;
+    }
+
+    .vm-block:first-child h2 { color: var(--gold); }
+    .vm-block:last-child h2 { color: var(--maroon); }
+
+    .vm-block p {
+      font-size: 1rem;
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+
+    .vm-block:first-child p { color: rgba(255,255,255,0.75); }
+    .vm-block:last-child p { color: var(--text-body); }
+
+    .vm-quote {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    .mission-list {
+      list-style: none;
+      margin-top: 2rem;
+    }
+
+    .mission-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(107,26,26,0.1);
+      font-size: 0.95rem;
+      color: var(--text-body);
+      font-weight: 300;
+    }
+
+    .mission-list li::before {
+      content: '—';
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: -2px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      background: var(--cream);
+      padding: 8rem 6rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      color: var(--maroon);
+      line-height: 1.1;
+    }
+
+    .section-header p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .timeline-spine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1rem;
+    }
+
+    .spine-line {
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+      flex: 1;
+      min-height: 100%;
+    }
+
+    .tl-left { text-align: right; }
+    .tl-right { text-align: left; }
+
+    .tl-item {
+      padding: 1.5rem 3rem;
+      position: relative;
+    }
+
+    .tl-left .tl-item { padding-right: 2.5rem; }
+    .tl-right .tl-item { padding-left: 2.5rem; }
+
+    .tl-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-desc {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .tl-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 1.8rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── DIFFERENCE ── */
+    .difference {
+      background: #f0ebe0;
+      padding: 8rem 6rem;
+    }
+
+    .diff-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .diff-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--maroon);
+      line-height: 1.1;
+    }
+
+    .diff-left p {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .diff-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .diff-card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .diff-card:hover {
+      border-color: var(--maroon);
+      transform: translateY(-4px);
+    }
+
+    .diff-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .diff-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 0.75rem;
+    }
+
+    .diff-card p {
+      font-size: 0.87rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 4rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    footer nav { display: flex; gap: 2rem; }
+    footer nav a {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    footer nav a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .fade-up.d1 { animation-delay: 0.1s; }
+    .fade-up.d2 { animation-delay: 0.25s; }
+    .fade-up.d3 { animation-delay: 0.4s; }
+    .fade-up.d4 { animation-delay: 0.55s; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .hero { padding: 7rem 2rem 3rem; }
+      .intro, .vm-section { grid-template-columns: 1fr; }
+      .intro-visual { min-height: 50vh; }
+      .intro-text { padding: 4rem 2rem; }
+      .vm-block { padding: 4rem 2rem; }
+      .pillars { padding: 4rem 2rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillars-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .timeline-section, .difference { padding: 5rem 2rem; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline-spine { display: none; }
+      .tl-left, .tl-right { grid-column: 1; }
+      .tl-item { padding: 1.5rem 0 !important; border-left: 2px solid var(--gold); padding-left: 1.5rem !important; }
+      .diff-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .diff-cards { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 2rem; padding: 3rem 2rem; }
+    }
+    </style>
 </head>
 <body>
 
@@ -25,176 +775,203 @@
             <a href="contact.html" >Contact</a>
         </div>
     </nav>
-        
-<section class="about-page">
-
-    <!-- TOP: GRID SECTION -->
-    <div class="about-grid">
-
-        <!-- LEFT TEXT -->
-        <div class="about-intro-text">
-            <h1>About NIVPL</h1>
-
-            <p>
-                What began as a humble restaurant in Belagavi has today evolved into one of the
-                region’s most respected names in hospitality. N I Ventures Private Limited (NIVPL)
-                stands as the corporate home to the Niyaaz Group of Restaurants — a collection of
-                diverse brands built on the shared foundation of taste, trust, and timeless quality.
-            </p>
-
-            <p>
-                From that first kitchen on P.B. Road, NIVPL has grown into a multi-brand enterprise
-                that spans dine-in, delivery, and takeaway concepts. Yet, the essence remains
-                unchanged — creating food experiences that bring people together. 
-                Every brand under NIVPL carries forward the same passion for authenticity, 
-                consistency, and warmth that started it all.
-            </p>
-
-            <p>
-                Driven by vision, rooted in values, and powered by people, NIVPL continues to shape
-                the way Belagavi and beyond experience good food.
-            </p>
-        </div>
-
-        <!-- RIGHT IMAGE -->
-        <div class="about-intro-image">
-            <div class="image-placeholder"><img src="aboutImg.jpg" alt="" srcset=""></div>
-        </div>
-
-    </div>
-
-
-    <!-- FULL WIDTH CONTENT -->
-    <div class="about-full">
-
-        <h2>Vision</h2>
-        <p>
-            To be the region’s most trusted and admired restaurant group — one that consistently
-            delivers excellence through flavour, service, and integrity.
-        </p>
-        <p>
-            We envision NIVPL as a brand that not only leads in business but also inspires confidence
-            in every guest, partner, and team member who becomes part of its journey.
-        </p>
-        <p>
-            Our vision goes beyond growth; it is about creating experiences that people remember,
-            nurturing a sense of belonging through every meal, and setting new benchmarks for hospitality across the region.
-            By blending tradition with innovation and expertise with empathy, we aim to build a name synonymous with reliability, value, 
-            and heartfelt service.
-
-        </p>
-
-        <h2>Mission</h2>
-        <p>
-            Our mission is to build and nurture food brands that bring people together through
-            authentic flavours, consistent quality, and genuine hospitality.
-        </p>
-        <p>At NIVPL, we are committed to:</p>
-        <ul class="mission-list">
-            <li>Maintaining uncompromising standards of taste, hygiene, and service across all our brands.</li>
-            <li>Empowering our teams through expert training, strong systems, and a culture of pride in craftsmanship.</li>
-            <li>Offering exceptional value at competitive prices, without ever compromising on quality.</li>
-            <li>Building long-term partnerships with suppliers, stakeholders, and communities based on mutual respect and trust.</li>
-            <li>Continuously innovating to meet the evolving needs of our guests while staying true to our roots.</li>
-        </ul>
-
-        <h2>Our Story</h2>
-        <p>
-            The story of NIVPL is deeply rooted in the vision of Mr. Soudagar and his sons,
-            Mr. Niyaz Soudagar and Mr. Irshad Soudagar — a family driven by the belief that great
-            food has the power to bring people together.
-        </p>
-        <p>
-            What began as a simple idea in the heart of Belagavi’s old city soon grew into a
-            defining movement in the region’s dining culture. At a time when eating out with family 
-            and friends was not yet a norm, the Soudagars envisioned a space where people could share meals, 
-            celebrate moments, and experience hospitality that felt personal.
-        </p>
-        <p>
-            From that vision emerged a series of restaurants and concepts that combined dining, 
-            takeaway, and home delivery, built around one unwavering principle the customer comes first. 
-            Every decision, every recipe, 
-            and every outlet was created with quality, consistency, and trust at its core.
-        </p>
-
-        <h2>Our Purpose</h2>
-        <p>
-           At NIVPL, our purpose has always been to make dining an experience worth sharing. 
-           We wanted to redefine how Belagavi came together over food to create spaces where families gathered,
-            friends reconnected, and celebrations found their flavour.
-        <p>
-            By nurturing a culture of hospitality that values people as much as food, 
-            we’ve built more than just restaurants  we’ve built relationships that last.
-        </p>
-
-        <h2>Year of Establishment</h2>
-        <p>
-            The journey officially began on <strong>20th October 1989</strong>,  a date that marked 
-            the birth of an idea destined to reshape Belagavi’s 
-            food culture. From a single restaurant to a thriving group of 
-            brands, NIVPL’s growth reflects decades of dedication, innovation, 
-            and a promise to serve only the best.
-
-        </p>
-
-        <h2>What Makes Us Different</h2>
-        <p>
-            What truly sets NIVPL apart is not just what we serve, but how we serve.
-        </p>
-        <p>
-            Our foundation rests on trust, quality, and an enduring commitment to excellence.
-            We don’t see service as a transaction, but as a promise to deliver warmth,
-            consistency, and care, every single time.
-        </p>
-        <p>
-            It’s this spirit of perseverance and passion that has 
-            turned a single family vision into a trusted name, 
-            and a beloved experience for thousands of guests across generations.
-        </p>
-
-    </div>
-
+ 
+<!-- ====== HERO HTML - paste after your </nav> ====== -->
+<section class="about-hero">
+  <div class="about-hero-content">
+    <div class="about-hero-eyebrow">Our Story</div>
+    <h1>
+      About <em>NIVPL</em><br>
+      &amp; The Niyaaz<br>
+      Group
+    </h1>
+    <p class="about-hero-sub">
+      From a humble kitchen on P.B. Road to one of the region's most respected hospitality groups — since 1989.
+    </p>
+  </div>
 </section>
 
+  <!-- MAIN -->
+  <main>
 
-    
-<footer id="contact" class="footer">
-    <div class="footer-inner">
+    <!-- INTRO -->
+    <section class="intro">
+      <div class="intro-text reveal">
+        <p class="section-label">Who We Are</p>
+        <p>What began as a humble restaurant in Belagavi has today evolved into one of the region's most respected names in hospitality.</p>
+        <p>N I Ventures Private Limited (NIVPL) stands as the corporate home to the Niyaaz Group of Restaurants — a collection of diverse brands built on the shared foundation of taste, trust, and timeless quality.</p>
+        <p>From that first kitchen on P.B. Road, NIVPL has grown into a multi-brand enterprise that spans dine-in, delivery, and takeaway concepts. Yet, the essence remains unchanged — creating food experiences that bring people together.</p>
+        <p>Every brand under NIVPL carries forward the same passion for authenticity, consistency, and warmth that started it all. Driven by vision, rooted in values, and powered by people, NIVPL continues to shape the way Belagavi and beyond experiences good food.</p>
+      </div>
+      <div class="intro-visual">
+        <!-- Replace src with your actual team photo path -->
+        <img src="team.jpg" alt="NIVPL Team" onerror="this.style.display='none'; this.parentElement.style.background='#2a1c0a';" />
+        <div class="est-badge">
+          <span class="year">1989</span>
+          <span class="label">Est. October 20th</span>
+        </div>
+      </div>
+    </section>
 
-        <div class="footer-left">
-            <h3>NIVPL</h3>
-            <p class="company-name">NI Ventures Private Limited</p>
+    <!-- PILLARS -->
+    <section class="pillars">
+      <div class="pillars-header reveal">
+        <h2>Built on<br><span>Three Pillars</span></h2>
+        <p>Every decision, every dish, every experience at NIVPL stems from these core commitments.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar reveal">
+          <div class="pillar-num">01</div>
+          <h3>Taste</h3>
+          <p>Authentic flavours crafted with precision — recipes perfected over decades, served with pride every single day.</p>
+          <div class="pillar-line"></div>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">02</div>
+          <h3>Trust</h3>
+          <p>Every guest, partner, and team member places their confidence in NIVPL. That trust is our most treasured asset.</p>
+          <div class="pillar-line"></div>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">03</div>
+          <h3>Timeless Quality</h3>
+          <p>From sourcing to service, we uphold standards that never waver — because excellence has no expiry date.</p>
+          <div class="pillar-line"></div>
+        </div>
+      </div>
+    </section>
 
-            <p class="address">
-                3027, PB Road, Opp. Market Police Station,<br>
-                Khade Bazar, Raviwar Peth,<br>
-                Belagavi, Karnataka – 590001
-            </p>
+    <!-- VISION & MISSION -->
+    <section class="vm-section">
+      <div class="vm-block reveal">
+        <p class="section-label" style="color: rgba(255,255,255,0.4);">Our North Star</p>
+        <h2>Vision</h2>
+        <p>To be the region's most trusted and admired restaurant group — one that consistently delivers excellence through flavour, service, and integrity.</p>
+        <p>We envision NIVPL as a brand that not only leads in business but also inspires confidence in every guest, partner, and team member who becomes part of its journey.</p>
+        <p>Our vision goes beyond growth; it is about creating experiences that people remember, nurturing a sense of belonging through every meal, and setting new benchmarks for hospitality across the region.</p>
+        <div class="vm-quote">"Blending tradition with innovation, and expertise with empathy."</div>
+      </div>
+      <div class="vm-block reveal">
+        <p class="section-label">Our Commitment</p>
+        <h2>Mission</h2>
+        <p>To build and nurture food brands that bring people together through authentic flavours, consistent quality, and genuine hospitality.</p>
+        <p>At NIVPL, we are committed to:</p>
+        <ul class="mission-list">
+          <li>Serving food that feels like home, wherever you are</li>
+          <li>Empowering our people to deliver exceptional experiences</li>
+          <li>Innovating while honouring the traditions that define us</li>
+          <li>Growing sustainably with integrity at every step</li>
+          <li>Building lasting relationships beyond every transaction</li>
+        </ul>
+      </div>
+    </section>
 
-            <p class="gst">GSTIN: 29AAFCN7643A1ZH</p>
+    <!-- PURPOSE & TIMELINE -->
+    <section class="timeline-section">
+      <div class="section-header reveal">
+        <p class="section-label">Our Journey</p>
+        <h2>Three and a Half Decades<br>of Flavour</h2>
+        <p>From a single kitchen to a multi-brand legacy</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-left">
+          <div class="tl-item reveal">
+            <div class="tl-year">1989</div>
+            <div class="tl-title">The Beginning</div>
+            <p class="tl-desc">On 20th October, the first Niyaaz Restaurant opened its doors on P.B. Road, Belagavi — a humble kitchen with an extraordinary dream.</p>
+          </div>
+          <div class="tl-item reveal" style="margin-top: 4rem;">
+            <div class="tl-year">2000s</div>
+            <div class="tl-title">Brand Expansion</div>
+            <p class="tl-desc">NIVPL began growing beyond its flagship outlet, launching new concepts across dine-in, delivery, and takeaway formats.</p>
+          </div>
         </div>
 
-        <div class="footer-right">
-            <div class="footer-block">
-                <h4>Media & Partnerships</h4>
-                <a href="mailto:contact@niyaaz.in">contact@niyaaz.in</a>
-            </div>
-
-            <div class="footer-block">
-                <h4>Our Brands</h4>
-                <p>
-                    Niyaaz · Koyla · Another Breakfast · Galangal · Assal Mawla Darbar
-                </p>
-            </div>
+        <div class="timeline-spine">
+          <div class="tl-dot"></div>
+          <div class="spine-line"></div>
+          <div class="tl-dot"></div>
+          <div class="spine-line"></div>
+          <div class="tl-dot"></div>
         </div>
 
-    </div>
+        <div class="tl-right">
+          <div class="tl-item reveal" style="margin-top: 4rem;">
+            <div class="tl-year">2010s</div>
+            <div class="tl-title">Corporate Identity</div>
+            <p class="tl-desc">N I Ventures Private Limited was formally established, giving the group a unified corporate identity to house its growing portfolio of brands.</p>
+          </div>
+          <div class="tl-item reveal" style="margin-top: 4rem;">
+            <div class="tl-year">Today</div>
+            <div class="tl-title">A Thriving Legacy</div>
+            <p class="tl-desc">NIVPL stands as a multi-brand hospitality enterprise — trusted by thousands of guests, celebrated across the region, and still driven by day one passion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="footer-bottom">
-        ©2026 NIVPL. All rights reserved. Designed & Developed by Social Santa.
-    </div>
-</footer>
+    <!-- WHAT MAKES US DIFFERENT -->
+    <section class="difference">
+      <div class="diff-inner">
+        <div class="diff-left reveal">
+          <p class="section-label">Our Edge</p>
+          <h2>What Makes Us Different</h2>
+          <p>What truly sets NIVPL apart is not just what we serve, but how we serve. Our foundation rests on trust, quality, and an enduring commitment to excellence.</p>
+        </div>
+        <div class="diff-cards">
+          <div class="diff-card reveal">
+            <div class="diff-icon">🍽️</div>
+            <h3>Authentic Flavours</h3>
+            <p>Recipes that honour tradition, refined through decades of passion and precision in every kitchen we run.</p>
+          </div>
+          <div class="diff-card reveal">
+            <div class="diff-icon">🤝</div>
+            <h3>People First</h3>
+            <p>We invest in our team as deeply as we invest in our food — because great hospitality begins with great people.</p>
+          </div>
+          <div class="diff-card reveal">
+            <div class="diff-icon">🌿</div>
+            <h3>Consistent Standards</h3>
+            <p>From sourcing to plating, our quality controls ensure every meal carries the same NIVPL promise.</p>
+          </div>
+          <div class="diff-card reveal">
+            <div class="diff-icon">✨</div>
+            <h3>Community Roots</h3>
+            <p>Belagavi is where we grew up. We're proud to give back through employment, culture, and shared tables.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">NIVPL</div>
+      <div class="footer-tagline">N I Ventures Private Limited</div>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
